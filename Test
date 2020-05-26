@@ -1,0 +1,51 @@
+import java.util.*;
+import java.io.*;
+import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
+import java.math.RoundingMode;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class Main {
+
+	public static void main(String[] args) throws IOException, JSONException {
+		double[] d = new double[10000];
+		JSONObject job1 = new JSONObject();
+		JSONObject job2 = new JSONObject();
+		File fI = new File("E:\\Memory.txt");
+		try (BufferedReader br = new BufferedReader(new FileReader(fI))) {
+			String str;
+			double t;
+			int val = 0;
+			int i = 0;
+			double sum = 0.0;
+			double maximum = 0.0;
+			while ((str = br.readLine()) != null) {
+				if (val % 2 != 0) {
+					String s = str;
+					s = s.replaceAll("[^0-9]", "");
+					s = s.trim();
+					t = Integer.parseInt(s);
+					d[i++] = t / 10000;
+				}
+				val++;
+			}
+			String str1;
+			for (int j = 0; j < 938; j++) {
+				str1 = String.format("%d", j);
+				job2.put(str1 + "s", d[j]);
+				if (maximum < d[j])
+					maximum = d[j];
+				sum = sum + d[j];
+			}
+			double avg = sum / 938;
+			DecimalFormat df = new DecimalFormat("#.###");
+			df.setRoundingMode(RoundingMode.CEILING);
+			job1.put("AverageMemory(MB)", df.format(avg));
+			job1.put("values: ", job2);
+			job1.put("MaximumMemory(MB)", df.format(maximum));
+			System.out.println(job1);
+		}
+	}
+}
