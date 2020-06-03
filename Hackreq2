@@ -1,0 +1,31 @@
+import java.util.*;
+import java.io.*;
+import org.json.JSONObject;
+import java.text.DecimalFormat;
+import java.math.RoundingMode;
+import java.io.FileNotFoundException;
+
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+		JSONObject js = new JSONObject();
+		JSONObject jsob1 = new JSONObject();
+		JSONObject jsob2 = new JSONObject();
+		File fI = new File("E:\\Battery.txt");
+		String string1 = null, string2, value, result;
+		try (BufferedReader br = new BufferedReader(new FileReader(fI))) {
+			String readLine;
+			int i = 0, j, val = 0;
+			String line = readLine = br.readLine();
+			while (line != null) {
+				if (line.startsWith("Foreground activities:")) {
+					string1 = line.substring(23);
+					System.out.println("Foreground_time:" + string1);
+					break;
+				}
+			}
+		}
+		
+
+	}
+}
